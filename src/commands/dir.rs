@@ -19,15 +19,22 @@ pub fn execute(path: Vec<&str>) {
         let path_str = path.join(" ");
         let path = Path::new(path_str.as_str());
         if path.is_file() {}
-        if path.is_dir() {}
+        if path.is_dir() {
+            match std::fs::read_dir(path) {
+                Ok(result) => {
+                    traverse_dir(result);
+                }
+                Err(e) => {
+                    eprintln!("Error: {}", e.to_string());
+                }
+            }
+        }
     }
 }
 
 fn traverse_dir(dir: ReadDir) {
-    println!("Directory of {}", dir.display());
     for dir_entry in dir {
-        let entry = dir.unwrap();
-        pretty_print(&entry);
+        pretty_print(&dir_entry.unwrap());
     }
 }
 
