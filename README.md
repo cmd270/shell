@@ -1,5 +1,3 @@
- You said
-
 # Shell
 
 A small project for learning Rust and working with std.
